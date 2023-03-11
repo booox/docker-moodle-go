@@ -26,9 +26,21 @@ Change localhost  if necessary.
 
 
 
-## Check Tools & Commands
+## Commands
+
+* Check Tools
 
 ```
 $ docker compose ps
 $ docker compose logs
 $ docker compose logs moodle
+$ docker compose --help
+```
+
+* Start & Stop
+
+```
+$ docker compose up -d
+$ docker compose stop
+```
+
