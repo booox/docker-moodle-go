@@ -28,7 +28,7 @@ Change localhost  if necessary.
 
 ## Commands
 
-* Check Tools
+* Logs
 
 ```
 $ docker compose ps
@@ -123,6 +123,7 @@ Available environment variables:
 
 #### SMTP Configuration
 
+
 To configure Moodle™ to send email using SMTP you can set the following environment variables:
 
 `MOODLE_SMTP_HOST:` SMTP host.
@@ -133,6 +134,7 @@ To configure Moodle™ to send email using SMTP you can set the following enviro
 
 
 #### PHP configuration
+
 
 `PHP_ENABLE_OPCACHE:` Enable OPcache for PHP scripts. No default.
 `PHP_EXPOSE_PHP:` Enables HTTP header with PHP version. No default.
