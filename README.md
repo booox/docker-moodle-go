@@ -21,6 +21,7 @@ $ docker compose up -d
 
 Wait a few minutes, and Access the home page.
 
+Change localhost  if necessary.
 [http://localhost:8080](http://localhost:8080)
 
 
