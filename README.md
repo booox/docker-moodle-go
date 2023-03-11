@@ -146,7 +146,6 @@ To configure Moodle™ to send email using SMTP you can set the following enviro
 `PHP_UPLOAD_MAX_FILESIZE:` Maximum file size for PHP uploads. No default.
 
 
-
 ## Maintenance
 
 ### Backing up your container
