@@ -1,6 +1,7 @@
 
-version: '2'
-project-name: my-project
+version: '3'
+name: myproject
+
 services:
   mariadb:
     image: mariadb
