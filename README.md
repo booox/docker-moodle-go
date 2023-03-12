@@ -84,24 +84,36 @@ docker run --rm -v  $(pwd)/backups/moodle-backups:/backups --volumes-from moodle
 
 Restoring a backup is as simple as mounting the backup as volumes in the containers.
 
-For the MariaDB database container:
+#### Step 1: Create a network (if it does not exist)
 
 ```
- $ docker run -d --name mariadb \
-   ...
--  --volume /path/to/mariadb-persistence:/bitnami/mariadb \
-+  --volume /path/to/mariadb-backups/latest:/bitnami/mariadb \
-   bitnami/mariadb:latest
+docker network create moodle-network
 ```
 
-For the Moodle™ container:
+#### Step 2. For the MariaDB database container:
 
 ```
- $ docker run -d --name moodle \
-   ...
--  --volume /path/to/moodle-persistence:/bitnami/moodle \
-+  --volume /path/to/moodle-backups/latest:/bitnami/moodle \
-   bitnami/moodle:latest
+docker run -d --name mariadb \
+  --env MYSQL_ROOT_USER=root \
+  --env MYSQL_ROOT_PASSWORD=moodle \
+  --env MYSQL_DATABASE=moodle \
+  --network moodle-network \
+  --volume $(pwd)/backups/db-backups/latest:/var/lib/mysql \
+  mariadb
+```
+
+#### Step 3. For the Moodle™ container:
+
+```
+docker run -d --name moodle \
+  -p 8080:8080 -p 8443:8443 \
+  --env MOODLE_DATABASE_HOST=mariadb \
+  --env MOODLE_DATABASE_USER=root \
+  --env MOODLE_DATABASE_PASSWORD=moodle \
+  --env MOODLE_DATABASE_NAME=moodle \
+  --network moodle-network \
+  --volume $(pwd)/backups/moodle-backups/latest:/bitnami/moodle \
+  bitnami/moodle:latest
 ```
 
 
