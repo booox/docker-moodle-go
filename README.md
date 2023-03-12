@@ -56,12 +56,27 @@ To backup your data, configuration and logs, follow these simple steps:
 docker compose stop moodle
 ```
 
-#### Step 2: Run the backup command
+#### Step 2: Create backups folders
+
+```
+mkdir -p backups/moodle-backups backups/db-backups
+```
+
+#### Step 3: Run the backup command
 
 We need to mount two volumes in a container we will use to create the backup: a directory on your host to store the backup in, and the volumes from the container we just stopped so we can access the data.
 
+* For Mariadb
+
 ```
-docker run --rm -v /path/to/moodle-backups:/backups --volumes-from moodle busybox \
+docker run --rm -v $(pwd)/backups/db-backups:/backups --volumes-from mariadb busybox \
+  cp -a /var/lib/mysql /backups/latest
+```
+
+* For Moodle
+
+```
+docker run --rm -v  $(pwd)/backups/moodle-backups:/backups --volumes-from moodle busybox \
   cp -a /bitnami/moodle /backups/latest
 ```
 
