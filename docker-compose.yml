@@ -1,5 +1,6 @@
 
 version: '2'
+project-name: my-project
 services:
   mariadb:
     image: mariadb
@@ -9,6 +10,8 @@ services:
       - MYSQL_ROOT_PASSWORD=moodle
       - MYSQL_ROOT_USER=root
       - MYSQL_DATABASE=moodle
+    networks:
+      - moodle-network      
 
   moodle:
     image: bitnami/moodle:latest
@@ -27,5 +30,8 @@ services:
       - /srv/Configs/MoodleData:/bitnami/moodledata
     depends_on:
       - mariadb
-    links:
-      - mariadb:mariadb
+    networks:
+      - moodle-network
+
+networks:
+  moodle-network:
