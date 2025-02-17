@@ -1,0 +1,27 @@
+services:
+  mariadb:
+    image: docker.io/bitnami/mariadb:latest
+    env_file:
+      - .composeenv
+    volumes:
+      - ./backupData/mariadb:/bitnami/mariadb
+    networks:
+      - moodlenet
+
+  moodle:
+    image: docker.io/bitnami/moodle:4.5
+    ports:
+      - '8080:8080'
+      - '443:8443'
+    env_file:
+      - .composeenv
+    volumes:
+      - ./backupData/moodle:/bitnami/moodle
+      - ./backupData/moodledata:/bitnami/moodledata
+    depends_on:
+      - mariadb
+    networks:
+      - moodlenet
+
+networks:
+  moodlenet:
